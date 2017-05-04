@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">HearthstoneWinRatio</string>
+    <string name="app_name">HsWinRatio</string>
+    <string name="author">by Konrad Baczyński</string>
 </resources>

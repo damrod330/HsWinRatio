@@ -8,6 +8,7 @@
     tools:context="com.a16mb.damrod.hearthstonewinratio.MainActivity">
 
     <RelativeLayout
+        android:id="@+id/relative_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp">
 
@@ -16,6 +17,30 @@
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
             android:src="@drawable/main_bg" />
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"/>
+
+    <TextView
+        android:layout_gravity="right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/author"
+        android:textSize="8sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"/>
+</LinearLayout>
+
     </RelativeLayout>
 
     <HorizontalScrollView
@@ -28,39 +53,11 @@
         <LinearLayout
             android:id="@+id/navbar_linear_layout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:orientation="horizontal"
-            android:padding="6dp">
-
-            <ImageButton
-                android:id="@+id/btn_mage"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp"
-                android:background="@color/colorTransparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/mage_13" />
-
-            <ImageButton
-                android:id="@+id/btn_druid"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="4dp"
-                android:background="@color/colorTransparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/druid_22" />
-
-            <ImageButton
-                android:id="@+id/btn_add_new"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginRight="4dp"
-                android:background="@color/colorTransparent"
-                android:scaleType="centerInside"
-                android:src="@drawable/add_new" />
-
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp">
 
         </LinearLayout>
     </HorizontalScrollView>
@@ -73,10 +70,11 @@
         android:padding="10dp">
 
         <LinearLayout
+            android:id="@+id/body_linear_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="20dp"
+            android:layout_margin="12dp"
             android:orientation="vertical">
 
             <TextView
@@ -85,6 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="24dp"
+                android:clickable="true"
                 android:fontFamily="monospace"
                 android:text="freez mage"
                 android:textAllCaps="true"
@@ -96,9 +95,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:padding="6dp">
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
 
                 <TextView
 
@@ -128,8 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:orientation="horizontal"
-                android:padding="6dp">
+                android:orientation="horizontal">
 
                 <TextView
 
@@ -168,7 +165,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     android:backgroundTint="@color/colorPrimary"
-                    android:backgroundTintMode="src_atop"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:text="Victory"
@@ -179,7 +175,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/colorPrimaryDark"
-                    android:backgroundTintMode="src_atop"
                     android:paddingLeft="30dp"
                     android:paddingRight="30dp"
                     android:text="Defeat"
@@ -190,7 +185,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 android:padding="6dp">
 
