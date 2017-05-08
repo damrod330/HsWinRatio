@@ -1,16 +1,20 @@
 package com.a16mb.damrod.hearthstonewinratio;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.ContextThemeWrapper;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +63,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+
+        //drop table
+        //myDb = new DatabaseHelper(this);
+        //myDb.dropTable();
 
         myDb = new DatabaseHelper(this);
         //test only
@@ -137,18 +146,42 @@ public class MainActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 final EditText deckNameEt = new EditText(MainActivity.this);
                 deckNameEt.setHint("Deck name");
+
+                final Spinner selectClassSpinner = new Spinner(MainActivity.this);
+                String[] arraySpinner =
+                        {"Mage",
+                        "Hunter",
+                        "Warlock",
+                        "Warrior",
+                        "Druid",
+                        "Priest",
+                        "Paladin",
+                        "Shaman",
+                        "Rogue"};
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
+                        android.R.layout.simple_spinner_item, arraySpinner);
+                selectClassSpinner.setAdapter(adapter);
+                //selectClassSpinner.setPadding(convertPixelsToDp(0),convertPixelsToDp(0),convertPixelsToDp(0), convertPixelsToDp(0));
+
+                LinearLayout linearLayout = new LinearLayout(MainActivity.this);
+                linearLayout.setOrientation(LinearLayout.VERTICAL);
+                linearLayout.addView(deckNameEt);
+                linearLayout.addView(selectClassSpinner);
+                linearLayout.setPadding(convertPixelsToDp(24),convertPixelsToDp(8),convertPixelsToDp(24), convertPixelsToDp(8));
+
+
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Create new deck ")
-                        .setView(deckNameEt)
+                        .setView(linearLayout)
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                if(deckNameEt.getText().length() >= 4  && deckNameEt.getText().length() <= 22){
-                                    myDb.createDeck(deckNameEt.getText().toString(), 0, 0, getRandomImage());
+                                if (deckNameEt.getText().length() >= 4 && deckNameEt.getText().length() <= 22) {
+                                    myDb.createDeck(deckNameEt.getText().toString(), 0, 0, getImage(selectClassSpinner.getSelectedItemPosition()));
                                     initialSetup();
-                                }
-                                else {
+                                } else {
                                     Toast.makeText(MainActivity.this, "invalid deck name", Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -165,9 +198,9 @@ public class MainActivity extends AppCompatActivity {
         navbarLinearLayout.addView(btn);
     }
 
-    private int getRandomImage() {
-        int randomId = new Random().nextInt(7);
-        int[] iconsIds ={
+    private int getImage(int s) {
+
+        int[] iconsIds = {
                 R.drawable.mage_13,
                 R.drawable.hunter_4,
                 R.drawable.warlock_21,
@@ -175,9 +208,11 @@ public class MainActivity extends AppCompatActivity {
                 R.drawable.druid_22,
                 R.drawable.priest_12,
                 R.drawable.paladin_10,
-                R.drawable.shaman_5
+                R.drawable.shaman_5,
+                R.drawable.rogue_8
         };
-        return iconsIds[randomId];
+
+        return iconsIds[s];
     }
 
     private void loadDataToViews(deck deck) {
@@ -200,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         return Math.round(getResources().getDisplayMetrics().density * pixels);
     }
 
-    private void initialSetup(){
+    private void initialSetup() {
         deckList = myDb.getDeckList();
         if (!deckList.isEmpty()) {
             bodyLinearLayout.setVisibility(View.VISIBLE);
